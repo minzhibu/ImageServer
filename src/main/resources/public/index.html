@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传图片</title>
+</head>
+<body>
+    <h2>上传图片</h2>
+    <input type="file" id="upload" accept="image/jpeg,image/jpg,image/png,image/PNG">
+    <div>
+        <div>
+            图片地址为:<span id="imageAddress"></span>
+        </div>
+        <img id="image">
+    </div>
+</body>
+<script>
+    let image = document.getElementById("image");
+    let imageAddress = document.getElementById("imageAddress");
+    document.getElementById("upload").onchange = function(){
+        console.log(event);
+        var files = event.currentTarget.files;
+        console.log(files);
+        if(files.length === 1){
+            let formData = new FormData();
+            formData.append("file",files[0]);
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange=function()
+            {
+                if (xmlHttp.readyState===4 && xmlHttp.status===200)
+                {
+                    let imgAddress = window.location.protocol + window.location.host + xmlHttp.responseText;
+                    console.log(imageAddress);
+                    console.log(image);
+                    image.src=xmlHttp.responseText;
+                    imageAddress.innerText = imgAddress;
+                }
+            }
+            xmlHttp.open("POST","/file/",true);
+            xmlHttp.send(formData);
+
+        }else{
+            alert("只允许上传一张图片");
+        }
+    }
+</script>
+</html>

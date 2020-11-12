@@ -35,6 +35,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 访问html文件依赖begin -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!-- 访问html文件依赖begin -->
     </dependencies>
 
     <build>
